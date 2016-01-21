@@ -13,7 +13,7 @@ def authenticate(request):
     shop = request.REQUEST.get('shop')
     if shop:
         scope = settings.SHOPIFY_API_SCOPE
-        redirect_uri = request.build_absolute_uri(reverse('shopify_app.views.finalize'))
+        redirect_uri = request.build_absolute_uri(reverse('shopify_auth.views.finalize'))
         permission_url = shopify.Session(shop.strip()).create_permission_url(scope, redirect_uri)
         return render(request, 'shopify_auth/oauth_redirect.html',
             { 'permission_url': permission_url })
@@ -31,7 +31,7 @@ def finalize(request):
 
     except Exception:
         messages.error(request, "Could not log in to Shopify store.")
-        return redirect(reverse('shopify_app.views.login'))
+        return redirect(reverse('shopify_auth.views.login'))
 
     messages.info(request, "Logged in to shopify store.")
 
@@ -43,4 +43,4 @@ def logout(request):
     request.session.pop('shopify', None)
     messages.info(request, "Successfully logged out.")
 
-    return redirect(reverse('shopify_app.views.login'))
+    return redirect(reverse('shopify_auth.views.login'))
