@@ -8,15 +8,6 @@ import shopify
 def _return_address(request):
     return request.session.get('return_to') or reverse('root_path')
 
-def login(request):
-    # Ask user for their ${shop}.myshopify.com address
-
-    # If the ${shop}.myshopify.com address is already provided in the URL,
-    # just skip to authenticate
-    if request.REQUEST.get('shop'):
-        return authenticate(request)
-    return render_to_response('shopify_app/login.html', {},
-                              context_instance=RequestContext(request))
 
 def authenticate(request):
     shop = request.REQUEST.get('shop')
