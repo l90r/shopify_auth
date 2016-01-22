@@ -9,6 +9,8 @@ def shopify_header(context):
     shopify_context = context.get('shopify_context')
     if shopify_context:
     	shop = shopify_context.get('shop_url', None)
+        if not '://' in shop:
+            shop = 'https://' + shop
     else:
     	shop = None
     result = {
