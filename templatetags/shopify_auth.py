@@ -8,12 +8,12 @@ register = template.Library()
 def shopify_header(context):
     shopify_context = context.get('shopify_context')
     if shopify_context:
-    	shop = shopify_context.get('shop', None)
+    	shop = shopify_context.get('shop_url', None)
     else:
     	shop = None
     result = {
         'api_key': settings.SHOPIFY_API_KEY,
-        'shop': shop
+        'shop_url': shop
     }
     return result
 
